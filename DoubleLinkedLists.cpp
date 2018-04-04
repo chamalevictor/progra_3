@@ -2,11 +2,7 @@
 #include <string>
 #include <cstdlib>
 
-
 using namespace std;
-
-void reservation();
-void showAvailable();
 
 struct seat {
     string name;
@@ -18,8 +14,14 @@ struct seat {
     seat* next;
 };
 
-string seats[50];
+struct seat* start;
 
+void reservation();
+void showAvailable();
+struct seat* createNode();
+
+
+string seats[50];
 
 int main (){
 
@@ -27,34 +29,52 @@ int main (){
     for (int i = 0; i <50; i++){
         seats[i]="Disponible";
     }
-seats[12]="Ocupado   ";
-seats[31]="Ocupado   ";
-seats[5]="Ocupado   ";
-seats[46]="Ocupado   ";
+
     reservation();
 
 return 0;
 }
 
+struct seat* createNode(){
+    struct seat* newSeat = (struct seat*)malloc(sizeof(struct seat));
+    newSeat->prev = NULL;
+    newSeat->next = NULL;
 
-/* Determinar si aun hay asientos disponibles en la ventana y saber cuantos pasajeros bajaron*/
+    return newSeat;
+}
 
 
 void reservation(){
+
     int asiento;
 
     cout << "Por favor ingrese el numero del asiento que desea reservar.\n" << endl;
     showAvailable();
     cin>>asiento;
     asiento = asiento-1;
+    if(asiento<0||asiento>49){
+        cout << "el asiento seleccionado no es valido" << endl;
+    }
     if(seats[asiento]=="Ocupado   ")
         cout << "esta ocupado" << endl;
-    else
+    else{
         cout << "esta disponible" << endl;
+        struct seat* newSeat = createNode();
+        if (start == NULL){
+            start = newSeat;
+        }
+        cout << "Ingrese el nombre del pasajero " << endl;
+        cin>>newSeat->name;
+        cout << "Ingrese el apellido del pasajero " << endl;
+        cin>>newSeat->lName;
+
+        start->prev = newSeat;
+        newSeat->next = start;
+        start = newSeat;
+
+    }
 
 }
-
-
 
 
 void showAvailable(){
