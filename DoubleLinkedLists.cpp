@@ -58,7 +58,11 @@ ptrTemp = NULL;
     system("cls");
     cout << "ya corrio dos veces" << endl;
 
-    ptrTemp =
+    /*ptrTemp = ptrTail->prev;
+
+
+    cout << ptrTemp->name << endl;*/
+
 
 
 
@@ -106,7 +110,7 @@ void reservation(){
         }else{
         cout << "Ingrese el nombre del pasajero fuera if" << endl;
         cin >> newNode->name;
-
+        cout << "todo bien aqui" << endl;
         ptrTail->next = newNode;
         newNode->prev = ptrTail;
         cout << "El nombre ingresado es: " << ptrTail->name << endl;
