@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <conio.h>
+
 
 using namespace std;
 
@@ -14,11 +16,16 @@ struct seat {
     seat* next;
 };
 
-struct seat* start;
+struct seat* ptrHead;
+struct seat* ptrTail;
 
+void title();
+void menu();
+void fillSeats();
 void reservation();
 void showAvailable();
-struct seat* createNode();
+/*struct seat createNode();*/
+seat createSeat();
 
 
 string seats[50];
@@ -32,12 +39,21 @@ string seats[50];
 
 int main (){
 
-start = NULL;
-// Initializing seats array.
-    for (int i = 0; i <50; i++){
-        seats[i]="Disponible";
-    }
+ptrHead = NULL;
+ptrTail = NULL;
 
+
+    cout << "\n ADVERTENCIA! " << endl;
+    cout << " Por favor, maximizar la ventana antes de continuar." << endl;
+    getch();
+    fillSeats();
+    title();
+    reservation();
+    system("cls");
+    cout << "ya corrio una vez" << endl;
+    reservation();
+    system("cls");
+    cout << "ya corrio dos veces" << endl;
     reservation();
 
 return 0;
@@ -49,13 +65,12 @@ return 0;
 
 
 struct seat* createNode(){
-    struct seat* newSeat = (struct seat*)malloc(sizeof(struct seat));
-    newSeat->prev = NULL;
-    newSeat->next = NULL;
+    struct seat* newNode = (struct seat*)malloc(sizeof(struct seat));
+    newNode->prev = NULL;
+    newNode->next = NULL;
 
-    return newSeat;
+    return newNode;
 }
-
 
 void reservation(){
 
@@ -72,23 +87,27 @@ void reservation(){
         cout << "esta ocupado" << endl;
     else{
         cout << "esta disponible" << endl;
+        struct seat* newNode = createNode();
 
-        struct seat* newSeat = (struct seat*)malloc(sizeof(struct seat));
-        newSeat->prev = NULL;
-        newSeat->next = NULL;
-        if (start == NULL){
-            start = newSeat;
+        if (ptrHead == NULL){
+
+            cout << "Ingrese el nombre del pasajero" << endl;
+            cin >> newNode->name;
+            ptrHead = newNode;
+            ptrTail = newNode;
+            cout << "El nombre ingresado es: " << ptrTail->name << endl;
+
+        }else{
+        cout << "Ingrese el nombre del pasajero fuera if" << endl;
+        cin >> newNode->name;
+
+        ptrTail->next = newNode;
+        newNode->prev = ptrTail;
+        cout << "El nombre ingresado es: " << ptrTail->name << endl;
+        ptrTail = newNode;
+
+
         }
-        cout << "Ingrese el nombre del pasajero " << endl;
-        cin>>newSeat->name;
-        cout << "Ingrese el apellido del pasajero " << endl;
-        cin>>newSeat->lName;
-
-        /*start->prev = newSeat;
-        newSeat->next = start;
-        start = newSeat;*/
-        struct seat* temp = start;
-        cout << "puntero newSeat en nombre: " << temp->lName << endl;
 
 
     }
@@ -112,3 +131,22 @@ for (int i = 0; i < 25; i++){
     }
 }
 
+void fillSeats(){
+        for (int i = 0; i <50; i++){
+        seats[i]="Disponible";
+    }
+}
+
+seat createSeat(){
+    seat nuevo;
+    nuevo.next=NULL;
+    return nuevo;
+
+}
+
+void title(){
+    system("cls");
+    cout << "*************************" << endl;
+    cout << "**    BUSES LITEGUA    **" << endl;
+    cout << "*************************" << endl;
+}
