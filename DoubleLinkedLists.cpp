@@ -23,8 +23,16 @@ struct seat* createNode();
 
 string seats[50];
 
+
+
+
+
+
+
+
 int main (){
 
+start = NULL;
 // Initializing seats array.
     for (int i = 0; i <50; i++){
         seats[i]="Disponible";
@@ -34,6 +42,11 @@ int main (){
 
 return 0;
 }
+
+
+
+
+
 
 struct seat* createNode(){
     struct seat* newSeat = (struct seat*)malloc(sizeof(struct seat));
@@ -59,7 +72,10 @@ void reservation(){
         cout << "esta ocupado" << endl;
     else{
         cout << "esta disponible" << endl;
-        struct seat* newSeat = createNode();
+
+        struct seat* newSeat = (struct seat*)malloc(sizeof(struct seat));
+        newSeat->prev = NULL;
+        newSeat->next = NULL;
         if (start == NULL){
             start = newSeat;
         }
@@ -68,9 +84,12 @@ void reservation(){
         cout << "Ingrese el apellido del pasajero " << endl;
         cin>>newSeat->lName;
 
-        start->prev = newSeat;
+        /*start->prev = newSeat;
         newSeat->next = start;
-        start = newSeat;
+        start = newSeat;*/
+        struct seat* temp = start;
+        cout << "puntero newSeat en nombre: " << temp->lName << endl;
+
 
     }
 
