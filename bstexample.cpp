@@ -7,7 +7,7 @@ struct node {
 	node* childRight;
 };
 
-// Function to create a new Node in heap
+// Function to create a new Node
 node* GetNewNode(int data) {
 	node* newNode = new node();
 	newNode->data = data;
