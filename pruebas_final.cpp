@@ -16,16 +16,23 @@ struct nodo{
 };
 
 
-// Declaracion de funciones y variables globales.
-
-
-
-struct nodo* insertar(nodo* nuevo);
-struct nodo* pedirInfo(nodo* nuevo);
+// Declaracion de funciones.
+void menu();
+struct nodo* insertar(nodo* raiz);
+//struct nodo* proceso(nodo* padre, nodo* nuevo);
+void pedirInfo(nodo* nuevo);
 struct nodo* crearNodo();
+void title();
+void opciones();
+
+
+
+// Variables Globales
 struct nodo* root = NULL;
 
+nodo* nodo1 = crearNodo();
 
+nodo* nodo2 = crearNodo();
 
 
 /**** Funcion Principal ****/
@@ -33,36 +40,47 @@ struct nodo* root = NULL;
 
 int main(){
 
-insertar(root);
-
-cout << root->nombre;
-
 return 0;
-
 }
 
 /**** Finaliza funcion principal ****/
 
 
-// Funcion recursiva para insertar un nuevo nodo al arbol.
-struct nodo* insertar(nodo* nuevo){
-    if (nuevo==NULL)
-        nuevo = pedirInfo(crearNodo());
-    return nuevo;
 
+// Funcion recursiva para insertar un nodo en el arbol.
+struct nodo* insertar(nodo* raiz){
+
+    // Se crea y llena un nuevo nodo.
+    nodo* nuevo = crearNodo();
+    pedirInfo(nuevo);
+    nodo* padre = raiz;
+
+    nodo* proceso(nodo* padre, nodo* nuevo){
+        if (padre == NULL){
+            padre =nuevo;
+        }
+        else if(nuevo->clave<=padre->clave){
+            proceso(padre->izquierdo);
+        }
+        else{
+            proceso(padre->derecho);
+        }
+        return padre;
+    }
+        padre=proceso(padre, nuevo);
+    return padre;
 }
 
 
-// Asigna la informacion deseada al nodo nuevo.
-struct nodo* pedirInfo(nodo* nuevo){
-    cout << "Por favor ingrese la clave del estudiante: " << endl;
+
+// Pedir informacion.
+void pedirInfo(nodo* nuevo){
+    cout << "Por favor ingrese la clave del alumno: " << endl;
     cin >> nuevo->clave;
-    cout << "Por favor ingrese el nombre del estudiante: " << endl;
+    cout << "Ingrese el nombre del alumno: " << endl;
     cin >> nuevo->nombre;
 
-    return nuevo;
 }
-
 
 
 // Crea un nuevo nodo en memoria usando Malloc.
@@ -73,5 +91,6 @@ struct nodo* crearNodo(){
 
     return nuevo;
 }
+
 
 
